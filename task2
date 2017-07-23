@@ -1,0 +1,24 @@
+Python 3.4
+parallel-ssh (python module)
+Usage
+
+$ python task2.py --help
+
+usage: task2.py [-h] -i SSH_KEY -u USER HOSTS
+
+Run commands on multiple remote servers simultaneously over SSH
+
+positional arguments:
+  HOSTS                 Comma separated list of hostnames
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+required arguments:
+  -i SSH_KEY, --ssh-key SSH_KEY
+                        SSH key to connect to the remote hosts
+  -u USER, --user USER  Remote user for establishing connection to the hosts
+NOTE:-
+
+Please ensure that new hosts are added to '~/.ssh/known_hosts' file manually before executing the script.
+If a host being connected to is not in the 'known_hosts' file, the script will produce 'AuthenticationException' exception
