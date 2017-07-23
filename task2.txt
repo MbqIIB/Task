@@ -1,0 +1,45 @@
+from pssh.pssh_client import ParallelSSHClient
+import pssh.utils
+import argparse
+import os
+from sys import exit
+
+# Parsing command line arguments
+parser = argparse.ArgumentParser(description='Run commands on multiple remote servers simultaneously over SSH')
+required_args = parser.add_argument_group('required arguments')
+required_args.add_argument('-i', '--ssh-key', required=True, help='SSH key to connect to the remote hosts')
+required_args.add_argument('-u', '--user', required=True, help='Remote user for establishing connection to the hosts')
+parser.add_argument('HOSTS', help='Comma separated list of hostnames')
+args = parser.parse_args()
+
+hosts = args.HOSTS.split(',')
+key = args.ssh_key
+username = args.user
+
+# Checking if SSH key exists
+if os.path.exists(key) and os.path.isfile(key):
+    # Configuring and initializing ParallelSSHClient
+    client_key = pssh.utils.load_private_key(key)
+    client = ParallelSSHClient(hosts, user=username, pkey=client_key)
+
+    # Console to enter commands to be executed on remote hosts
+    while True:
+        try:
+            command = str(input('> '))
+            if command == 'exit':
+                exit()
+            output = client.run_command(command)
+        except Exception as exception:
+            print('Error occurred during execution: {0}'.format(type(exception).__name__))
+            exit()
+        else:
+            # Printing results to STDOUT
+            for host in output:
+                print('[HOST: {0}]'.format(host))
+
+                for line in output[host]['stdout']:
+                    print(line)
+
+                print()
+else:
+    print("SSH key does not exist.")
