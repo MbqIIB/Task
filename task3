@@ -1,0 +1,22 @@
+Task3
+Solution : The following solution assumes the architecture is been through cloud assessment phase.
+
+1.  I would start with understanding the different storage options available with AWS.For the given Stack,
+I’d go for Amazon Elastic Block Store for it's persistency ,durability and low latency.
+Considering the app is stateless, this choice would be economical too.
+
+2.  Once decided on the storage, I’d use amazon's Simple Storage Service to deal with the data.
+Since S3 is cost-efficient and it provides global access to the data from remote locations, it can be a good fit into the architecture.
+
+3.Coming to MongoDb database, would use Amazon's Elastic Compute Cloud (Amazon EC2) for migration.
+Increases the deployment speed drastically by avoiding configuration of multiple servers manually. 
+Supports Virtual Computing Environment and auto back-ups.
+
+4.Finally I would use the ForkLift Migration Strategy to migrate the stack as it requires less efforts and minimal planning.
+
+5.Since we're already using EC2,Amazon provides Amazon Linux AMI for no additional costs 
+which I would use as a stable environment for execution and maintenance.
+
+6.HA and Load Balancing would be take care of by Amazon's Elastic Load Balancing's Application Load Balancer.
+Taken from AWS's documentation, Elastic Load Balancing scales its request handling capacity to meet the demands
+of application traffic.
